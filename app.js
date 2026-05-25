@@ -43,7 +43,13 @@ function render(data) {
       ${data.bosses.map(b => `
         <div>
           <strong>${b.avatar} ${b.name}</strong>
-          <p>${b.fact} / ${b.plan} — ${b.progress}%</p>
+          <p>${b.fact} / ${b.plan}</p>
+
+<div class="bar smallbar">
+  <div class="fill" style="width:${b.progress}%"></div>
+</div>
+
+<p>${b.progress}%</p>
         </div>
       `).join('')}
     </section>
