@@ -78,25 +78,34 @@ function render(data) {
     </section>
   `;
 
- document.querySelectorAll('button[data-action]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    btn.disabled = true;
-    btn.textContent = '...';
+  document.querySelectorAll('button[data-action]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      btn.textContent = '...';
 
-    if (btn.dataset.action === 'toggle') {
-      toggleQuest(
-        btn.dataset.sheet,
-        Number(btn.dataset.row),
-        btn.dataset.done === 'true'
-      );
-    }
+      if (btn.dataset.action === 'toggle') {
+        toggleQuest(
+          btn.dataset.sheet,
+          Number(btn.dataset.row),
+          btn.dataset.done === 'true'
+        );
+      }
 
-    if (btn.dataset.action === 'medium-add') {
-      addMediumProgress(Number(btn.dataset.row), 'add');
-    }
+      if (btn.dataset.action === 'medium-add') {
+        addMediumProgress(Number(btn.dataset.row), 'add');
+      }
 
-    if (btn.dataset.action === 'medium-remove') {
-      addMediumProgress(Number(btn.dataset.row), 'remove');
-    }
+      if (btn.dataset.action === 'medium-remove') {
+        addMediumProgress(Number(btn.dataset.row), 'remove');
+      }
+    });
   });
-});
+}
+
+function loadGame() {
+  const script = document.createElement('script');
+  script.src = API + '?callback=render';
+  document.body.appendChild(script);
+}
+
+loadGame();
