@@ -55,11 +55,14 @@ function render(data) {
           <p>${q.type} · ${q.category} · +${q.xp} XP</p>
 
           ${q.type === 'Міні'
-            ? `<button data-sheet="${q.sheet}" data-row="${q.row}" data-done="${!q.done}">
-                ${q.done ? 'Скасувати' : 'Виконати'}
-              </button>`
-            : ''
-          }
+  ? `<button data-action="toggle" data-sheet="${q.sheet}" data-row="${q.row}" data-done="${!q.done}">
+      ${q.done ? 'Скасувати' : 'Виконати'}
+    </button>`
+  : `
+    <button data-action="medium-add" data-row="${q.row}">+ XP</button>
+    <button data-action="medium-remove" data-row="${q.row}">− XP</button>
+  `
+}
         </div>
       `).join('')}
     </section>
@@ -75,21 +78,25 @@ function render(data) {
     </section>
   `;
 
-  document.querySelectorAll('button[data-sheet]').forEach(btn => {
-    btn.addEventListener('click', () => {
+ document.querySelectorAll('button[data-action]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    if (btn.dataset.action === 'toggle') {
       toggleQuest(
         btn.dataset.sheet,
         Number(btn.dataset.row),
         btn.dataset.done === 'true'
       );
-    });
+    }
+
+    if (btn.dataset.action === 'medium-add') {
+      addMediumProgress(Number(btn.dataset.row), 'add');
+    }
+
+    if (btn.dataset.action === 'medium-remove') {
+      addMediumProgress(Number(btn.dataset.row), 'remove');
+    }
   });
-}
-
-function loadGame() {
-  const script = document.createElement('script');
-  script.src = API + '?callback=render';
-  document.body.appendChild(script);
-}
-
-loadGame();
+});
