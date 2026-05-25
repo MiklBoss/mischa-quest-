@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/https://miklboss.github.io/mischa-quest-//exec';
+const API = 'https://script.google.com/macros/s/https://XXXX//exec';
 
 async function loadGame() {
   const app = document.getElementById('app');
