@@ -60,7 +60,16 @@ function render(data) {
         <div>
           <strong>${q.done ? '✅' : '⬜'} ${q.name}</strong>
           <p>${q.type} · ${q.category} · +${q.xp} XP</p>
+${q.type === 'Середній'
+  ? `
+    <div class="bar smallbar">
+      <div class="fill" style="width:${q.progress}%"></div>
+    </div>
 
+    <p>${q.storedXp} / ${q.xp} XP</p>
+  `
+  : ''
+}
           ${q.type === 'Міні'
   ? `<button data-action="toggle" data-sheet="${q.sheet}" data-row="${q.row}" data-done="${!q.done}">
       ${q.done ? 'Скасувати' : 'Виконати'}
