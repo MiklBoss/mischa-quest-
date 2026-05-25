@@ -52,20 +52,32 @@ async function loadGame() {
 
       <section>
         <h2>🎁 Rewards</h2>
-        ${data.rewards.map(r => `
-          <div>
-            <strong>Level ${r.level}</strong>
-            <p>${r.reward} ${r.claimed ? '✅' : ''}</p>
-          </div>
-        `).join('')}
-      </section>
-    `;
-  } catch (err) {
-    app.innerHTML = `
-      <h1>⚠️ Error</h1>
-      <pre>${err.message}</pre>
-    `;
-  }
-}
+       ${data.quests.map(q => `
+  <div>
 
-loadGame();
+    <strong>
+      ${q.done ? '✅' : '⬜'} ${q.name}
+    </strong>
+
+    <p>
+      ${q.type} · ${q.category} · +${q.xp} XP
+    </p>
+
+    ${q.type === 'Міні'
+      ? `
+        <button
+          onclick="
+            toggleQuest(
+              '${q.sheet}',
+              ${q.row},
+              ${!q.done}
+            )
+          ">
+          ${q.done ? 'Скасувати' : 'Виконати'}
+        </button>
+      `
+      : ''
+    }
+
+  </div>
+`).join('')}
