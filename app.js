@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/AKfycbz7oZ56BUWS1z-ISMtUtps72v5ssxOpG487lVpmCu3QnSaIMvg5BcPvzDtbfApUwDWN5g/exec';
+const API = 'https://script.google.com/macros/s/AKfycbxOK7qyCx0fnAf9JaE8Wqhv2TLOTbcP-tkrQdJE9Av-Xn2L0K8iBhZzL7Ks_qekVDZhsw/exec';
 
 function callApi(params) {
   const script = document.createElement('script');
