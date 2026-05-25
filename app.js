@@ -1,5 +1,19 @@
-const API = 'https://script.google.com/macros/s/AKfycbwBw4PgtCgmJZzsETs-VPcgqAY4YoS2jpvPpWhXhgAz-7uQuVOW8DvzPJfcfXsHNnzhZQ/exec';
+const API = 'https://script.google.com/macros/s/AKfycbwV6BX3ttSF0F58v4mn3yZssYL3-L5TND0_I3lbqGEZAXt0rJQGr8FzGwNcWVVshNvTlQ/exec';
 
+async function toggleQuest(sheet, row, done) {
+
+  await fetch(API, {
+    method: 'POST',
+    body: JSON.stringify({
+      action: 'toggleQuest',
+      sheet,
+      row,
+      done
+    })
+  });
+
+  loadGame();
+}
 async function loadGame() {
   const app = document.getElementById('app');
 
