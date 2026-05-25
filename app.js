@@ -15,7 +15,16 @@ function toggleQuest(sheet, row, done) {
 }
 function addMediumProgress(row, direction) {
   const script = document.createElement('script');
+function startNewDay() {
+  const script = document.createElement('script');
 
+  script.src =
+    API +
+    '?action=startNewDay' +
+    '&callback=render';
+
+  document.body.appendChild(script);
+}
   script.src =
     API +
     '?action=addMediumProgress' +
