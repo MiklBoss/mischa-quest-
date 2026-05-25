@@ -8,10 +8,12 @@ async function toggleQuest(sheet, row, done) {
     '&row=' + encodeURIComponent(row) +
     '&done=' + encodeURIComponent(done);
 
-  const res = await fetch(url);
-  const data = await res.json();
+  await fetch(url, {
+    method: 'GET',
+    mode: 'no-cors'
+  });
 
-  render(data);
+  setTimeout(loadGame, 1000);
 }
 
 function render(data) {
