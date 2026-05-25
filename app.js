@@ -1,19 +1,17 @@
 const API = 'https://script.google.com/macros/s/AKfycbxvb_rpDW7nr8KHfY9oiiMtgIUcWEcFfIDwn7ewbZCcHA2NeOv7b5WRD9kEXA01eh1pxw/exec';
 
-async function toggleQuest(sheet, row, done) {
-  const url =
+function toggleQuest(sheet, row, done) {
+  const script = document.createElement('script');
+
+  script.src =
     API +
     '?action=toggleQuest' +
     '&sheet=' + encodeURIComponent(sheet) +
     '&row=' + encodeURIComponent(row) +
-    '&done=' + encodeURIComponent(done);
+    '&done=' + encodeURIComponent(done) +
+    '&callback=render';
 
-  await fetch(url, {
-    method: 'GET',
-    mode: 'no-cors'
-  });
-
-  setTimeout(loadGame, 1000);
+  document.body.appendChild(script);
 }
 
 function render(data) {
