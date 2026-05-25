@@ -52,32 +52,37 @@ async function loadGame() {
 
       <section>
         <h2>🎁 Rewards</h2>
-       ${data.quests.map(q => `
-  <div>
+      <section>
+  <h2>⚡ Quests</h2>
 
-    <strong>
-      ${q.done ? '✅' : '⬜'} ${q.name}
-    </strong>
+  ${data.quests.map(q => `
+    <div style="margin-bottom:20px;">
 
-    <p>
-      ${q.type} · ${q.category} · +${q.xp} XP
-    </p>
+      <strong>
+        ${q.done ? '✅' : '⬜'} ${q.name}
+      </strong>
 
-    ${q.type === 'Міні'
-      ? `
-        <button
-          onclick="
-            toggleQuest(
-              '${q.sheet}',
-              ${q.row},
-              ${!q.done}
-            )
-          ">
-          ${q.done ? 'Скасувати' : 'Виконати'}
-        </button>
-      `
-      : ''
-    }
+      <p>
+        ${q.type} · ${q.category} · +${q.xp} XP
+      </p>
 
-  </div>
-`).join('')}
+      ${q.type === 'Міні'
+        ? `
+          <button
+            onclick="
+              toggleQuest(
+                '${q.sheet}',
+                ${q.row},
+                ${!q.done}
+              )
+            ">
+            ${q.done ? 'Скасувати' : 'Виконати'}
+          </button>
+        `
+        : ''
+      }
+
+    </div>
+  `).join('')}
+
+</section>
