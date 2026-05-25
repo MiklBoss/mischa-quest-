@@ -75,19 +75,10 @@ function render(data) {
   });
 }
 
-async function loadGame() {
-  const app = document.getElementById('app');
-
-  try {
-    const res = await fetch(API);
-    const data = await res.json();
-    render(data);
-  } catch (err) {
-    app.innerHTML = `
-      <h1>⚠️ Error</h1>
-      <pre>${err.message}</pre>
-    `;
-  }
+function loadGame() {
+  const script = document.createElement('script');
+  script.src = API + '?callback=render';
+  document.body.appendChild(script);
 }
 
 loadGame();
