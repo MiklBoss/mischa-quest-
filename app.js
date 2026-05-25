@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/AKfycbx8dteeLJ3RvsdIzSXJk27NL4OTmTvGyHutV-8e9VU-KIOOmR3bIv7Y1VgHkIfAw9wQLQ/exec';
+const API = 'https://script.google.com/macros/s/AKfycbweNdBcZKeTKDA86fdIevLC85mx3cfwPvhv8iQtnR7tQF-xw7_Y5CxmLJJpeC8Mnwtq4Q/exec';
 
 function toggleQuest(sheet, row, done) {
   const script = document.createElement('script');
@@ -35,6 +35,7 @@ function render(data) {
       <h2>Level ${data.level}</h2>
       <p>Total XP: ${data.totalXp}</p>
       <p>Progress: ${data.xpPercent}%</p>
+      <button data-action="new-day">🌅 Новий день</button>
     </section>
 
     <section>
@@ -83,6 +84,9 @@ function render(data) {
       btn.disabled = true;
       btn.textContent = '...';
 
+      if (btn.dataset.action === 'new-day') {
+  startNewDay();
+}
       if (btn.dataset.action === 'toggle') {
         toggleQuest(
           btn.dataset.sheet,
