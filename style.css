@@ -67,9 +67,39 @@
       h1 { font-size: 25px; }
     }
   </style>
-body{
-  background:#111;
-  color:white;
-  font-family:sans-serif;
-  padding:20px;
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 20px;
+}
+
+#app {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+section {
+  background: #111827;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 18px;
+  margin: 14px 0;
+}
+
+h1 {
+  font-size: 34px;
+}
+
+h2 {
+  color: #38bdf8;
+}
+
+div {
+  margin: 10px 0;
+}
+
+strong {
+  font-size: 18px;
 }
