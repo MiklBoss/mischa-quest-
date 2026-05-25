@@ -7,14 +7,45 @@ async function loadGame() {
     const res = await fetch(API);
     const data = await res.json();
 
-    console.log(data);
-
     app.innerHTML = `
       <h1>🎮 Mischa Quest</h1>
-      <h2>JSON отримано ✅</h2>
-      <pre>${JSON.stringify(data, null, 2)}</pre>
-    `;
 
+      <section>
+        <h2>Level ${data.level}</h2>
+        <p>Total XP: ${data.totalXp}</p>
+        <p>Progress: ${data.xpPercent}%</p>
+      </section>
+
+      <section>
+        <h2>👹 Bosses</h2>
+        ${data.bosses.map(b => `
+          <div>
+            <strong>${b.avatar} ${b.name}</strong>
+            <p>${b.fact} / ${b.plan} — ${b.progress}%</p>
+          </div>
+        `).join('')}
+      </section>
+
+      <section>
+        <h2>⚡ Quests</h2>
+        ${data.quests.map(q => `
+          <div>
+            <strong>${q.done ? '✅' : '⬜'} ${q.name}</strong>
+            <p>${q.type} · ${q.category} · +${q.xp} XP</p>
+          </div>
+        `).join('')}
+      </section>
+
+      <section>
+        <h2>🎁 Rewards</h2>
+        ${data.rewards.map(r => `
+          <div>
+            <strong>Level ${r.level}</strong>
+            <p>${r.reward} ${r.claimed ? '✅' : ''}</p>
+          </div>
+        `).join('')}
+      </section>
+    `;
   } catch (err) {
     app.innerHTML = `
       <h1>⚠️ Error</h1>
