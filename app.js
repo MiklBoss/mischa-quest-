@@ -1,17 +1,16 @@
 const API = 'https://script.google.com/macros/s/AKfycbwV6BX3ttSF0F58v4mn3yZssYL3-L5TND0_I3lbqGEZAXt0rJQGr8FzGwNcWVVshNvTlQ/exec';
 
 async function toggleQuest(sheet, row, done) {
-  const res = await fetch(API, {
-    method: 'POST',
-    body: JSON.stringify({
-      action: 'toggleQuest',
-      sheet,
-      row,
-      done
-    })
-  });
+  const url =
+    API +
+    '?action=toggleQuest' +
+    '&sheet=' + encodeURIComponent(sheet) +
+    '&row=' + encodeURIComponent(row) +
+    '&done=' + encodeURIComponent(done);
 
+  const res = await fetch(url);
   const data = await res.json();
+
   render(data);
 }
 
