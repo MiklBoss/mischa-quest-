@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/AKfycbz4gKp8PrWEr7ou22HP-fh7xJVTiXytknmf2i5VjDIn0iKH2loCNn5ZxqMbgpAb6BxrZw/exec';
+const API = 'https://script.google.com/macros/s/AKfycbz7oZ56BUWS1z-ISMtUtps72v5ssxOpG487lVpmCu3QnSaIMvg5BcPvzDtbfApUwDWN5g/exec';
 
 function toggleQuest(sheet, row, done) {
   const script = document.createElement('script');
@@ -65,7 +65,6 @@ ${q.type === 'Середній'
     <div class="bar smallbar">
       <div class="fill" style="width:${q.progress}%"></div>
     </div>
-
     <p>${q.storedXp} / ${q.xp} XP</p>
   `
   : ''
