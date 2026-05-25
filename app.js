@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/AKfycbxD4IrBE1O6Lz-MVXzfEPx8eQbB8COBl0Xd9YNKGLjKvTUH7hGl2JwaYQ505xywjvpoBQ/exec';
+const API = 'https://script.google.com/macros/s/AKfycbx8dteeLJ3RvsdIzSXJk27NL4OTmTvGyHutV-8e9VU-KIOOmR3bIv7Y1VgHkIfAw9wQLQ/exec';
 
 function toggleQuest(sheet, row, done) {
   const script = document.createElement('script');
@@ -13,7 +13,18 @@ function toggleQuest(sheet, row, done) {
 
   document.body.appendChild(script);
 }
+function addMediumProgress(row, direction) {
+  const script = document.createElement('script');
 
+  script.src =
+    API +
+    '?action=addMediumProgress' +
+    '&row=' + encodeURIComponent(row) +
+    '&direction=' + encodeURIComponent(direction) +
+    '&callback=render';
+
+  document.body.appendChild(script);
+}
 function render(data) {
   const app = document.getElementById('app');
 
