@@ -70,12 +70,16 @@ function render(data) {
 
     <section>
       <h2>🎁 Rewards</h2>
-      ${data.rewards.map(r => `
-        <div>
-          <strong>Level ${r.level}</strong>
-          <p>${r.reward} ${r.claimed ? '✅' : ''}</p>
-        </div>
-      `).join('')}
+      ${data.rewards.map(r => {
+  const available = data.level >= r.level && !r.claimed;
+
+  return `
+    <div class="${available ? 'reward-available' : ''}">
+      <strong>${available ? '🎁🔥' : '🎁'} Level ${r.level}</strong>
+      <p>${r.reward} ${r.claimed ? '✅ Забрано' : available ? '✨ Доступно!' : ''}</p>
+    </div>
+  `;
+}).join('')}
     </section>
   `;
 
