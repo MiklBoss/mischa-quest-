@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/https://XXXX//exec';
+const API = 'https://script.google.com/macros/s/AKfycbxkPlZG7zRX4pQmJkchfWiV5zm7vC5QIM9T-5UWvygEcmh4MFmY9AYV3QtlNteWMzKE/exec';
 
 async function loadGame() {
   const app = document.getElementById('app');
