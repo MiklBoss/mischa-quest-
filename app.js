@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/AKfycbweNdBcZKeTKDA86fdIevLC85mx3cfwPvhv8iQtnR7tQF-xw7_Y5CxmLJJpeC8Mnwtq4Q/exec';
+const API = 'https://script.google.com/macros/s/AKfycbz4gKp8PrWEr7ou22HP-fh7xJVTiXytknmf2i5VjDIn0iKH2loCNn5ZxqMbgpAb6BxrZw/exec';
 
 function toggleQuest(sheet, row, done) {
   const script = document.createElement('script');
