@@ -1,4 +1,4 @@
-const API = 'https://script.google.com/macros/s/AKfycbzVUKp8fiLRzGnsLNrM2RdxM3N5DsNQhl0f3-QuMxaPsIm5croAZgGTgcHtHThG_Quu/exec';
+const API = 'https://script.google.com/macros/s/AKfycbyVpnT0fHKHOVBkEoI-k-diDhzF1jSSs8CaMNs3SMH8NvpT2adpRfYvnJDIvvWuweVeww/exec';
 let activeTab = 'home';
 let gameData = null;
 
