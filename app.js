@@ -3,6 +3,13 @@ const API = 'https://script.google.com/macros/s/AKfycbyVpnT0fHKHOVBkEoI-k-diDhzF
 let activeTab = 'home';
 let gameData = null;
 let focusQuestName = localStorage.getItem('focusQuestName') || '';
+let dailyReflection =
+  localStorage.getItem('dailyReflection') || '';
+
+function saveReflection(value) {
+  dailyReflection = value;
+  localStorage.setItem('dailyReflection', value);
+}
 
 function setFocusQuest(name) {
   focusQuestName = name;
@@ -43,6 +50,12 @@ function startNewDay() {
 }
 
 function render(data) {
+  const completedQuests =
+  data.quests.filter(q => q.done).length;
+
+const topBoss =
+  [...data.bosses]
+    .sort((a, b) => b.progress - a.progress)[0];
   gameData = data;
   const app = document.getElementById('app');
 
@@ -55,6 +68,7 @@ function render(data) {
       <button onclick="setTab('small')">✅ Mini</button>
       <button onclick="setTab('medium')">⚡ Medium</button>
       <button onclick="setTab('rewards')">🎁 Rewards</button>
+      <button onclick="setTab('summary')">📊 Summary</button>
     </div>
 
     ${activeTab === 'home' ? `
@@ -160,6 +174,49 @@ function render(data) {
     ${activeTab === 'rewards' ? `
       <section>
         <h2>🎁 Rewards</h2>
+        ${activeTab === 'summary' ? `
+  <section>
+
+    <h2>📊 Daily Summary</h2>
+
+    <div>
+      <strong>⭐ Today XP</strong>
+      <p>${data.totalXp}</p>
+    </div>
+
+    <div>
+      <strong>✅ Completed Quests</strong>
+      <p>${completedQuests}</p>
+    </div>
+
+    <div>
+      <strong>🎯 Current Focus</strong>
+      <p>${focusQuestName || 'No focus selected'}</p>
+    </div>
+
+    <div>
+      <strong>👹 Top Boss</strong>
+      <p>
+        ${topBoss.avatar}
+        ${topBoss.name}
+        — ${topBoss.progress}%
+      </p>
+    </div>
+
+    <div class="reflection-box">
+
+      <strong>📝 Reflection</strong>
+
+      <textarea
+        id="reflection"
+        placeholder="How was today..."
+        oninput="saveReflection(this.value)"
+      >${dailyReflection}</textarea>
+
+    </div>
+
+  </section>
+` : ''}
 
         ${data.rewards.map(r => `
           <div class="${data.level >= r.level && !r.claimed ? 'reward-available' : ''}">
