@@ -1,5 +1,11 @@
 const API = 'https://script.google.com/macros/s/AKfycbzVUKp8fiLRzGnsLNrM2RdxM3N5DsNQhl0f3-QuMxaPsIm5croAZgGTgcHtHThG_Quu/exec';
+let activeTab = 'home';
+let gameData = null;
 
+function setTab(tab) {
+  activeTab = tab;
+  render(gameData);
+}
 function callApi(params) {
   const script = document.createElement('script');
   script.src = API + '?' + params + '&callback=render';
@@ -28,6 +34,7 @@ function startNewDay() {
 }
 
 function render(data) {
+  gameData = data;
   const app = document.getElementById('app');
 
   app.innerHTML = `
