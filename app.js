@@ -16,7 +16,29 @@ function setFocusQuest(name) {
   localStorage.setItem('focusQuestName', name);
   render(gameData);
 }
+function continueFocusQuest() {
+  const quest = gameData.quests.find(q => q.name === focusQuestName);
 
+  if (!quest) return;
+
+  if (quest.type === 'Міні') {
+    activeTab = 'small';
+  }
+
+  if (quest.type === 'Середній') {
+    activeTab = 'medium';
+  }
+
+  render(gameData);
+
+  setTimeout(() => {
+    const el = document.querySelector(`[data-quest="${CSS.escape(focusQuestName)}"]`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('pulse-focus');
+    }
+  }, 100);
+}
 function setTab(tab) {
   activeTab = tab;
   render(gameData);
@@ -85,6 +107,10 @@ const topBoss =
         <div class="focus-box">
           <h3>🎯 Active Focus</h3>
           <p>${focusQuestName || 'Обери один квест як головний фокус зараз'}</p>
+          ${focusQuestName
+  ? `<button onclick="continueFocusQuest()">▶ Continue Quest</button>`
+  : ''
+}
         </div>
 
         <div class="notes-panel">
@@ -131,7 +157,7 @@ const topBoss =
         ${data.quests
           .filter(q => q.type === 'Міні')
           .map(q => `
-            <div>
+            <div data-quest="${q.name}">
               <strong>${q.done ? '✅' : '⬜'} ${q.name}</strong>
               <p>${q.category} · +${q.xp} XP</p>
 
@@ -154,7 +180,7 @@ const topBoss =
         ${data.quests
           .filter(q => q.type === 'Середній')
           .map(q => `
-            <div>
+           <div data-quest="${q.name}">
               <strong>${q.name}</strong>
               <p>${q.category}</p>
               <p>${q.storedXp || 0} XP</p>
