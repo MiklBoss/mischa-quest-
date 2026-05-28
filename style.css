@@ -185,3 +185,19 @@ section {
 .note-card {
   border-left: 4px solid #facc15;
 }
+textarea {
+  width: 100%;
+  min-height: 140px;
+  margin-top: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.05);
+  color: white;
+  padding: 14px;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.reflection-box {
+  border: 2px solid rgba(250,204,21,.25);
+}
