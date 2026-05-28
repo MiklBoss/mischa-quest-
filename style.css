@@ -152,3 +152,36 @@ button:hover {
   margin-top: 8px;
   line-height: 1.4;
 }
+section {
+  animation: fadeIn .25s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.focus-box {
+  border: 2px solid #38bdf8;
+  background: linear-gradient(135deg, rgba(56,189,248,.16), rgba(34,197,94,.12));
+}
+
+.focus-box h3,
+.notes-panel h3 {
+  margin-top: 0;
+}
+
+.notes-panel {
+  margin-top: 18px;
+}
+
+.note-card {
+  border-left: 4px solid #facc15;
+}
