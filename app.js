@@ -170,17 +170,12 @@ const topBoss =
           `).join('')}
       </section>
     ` : ''}
-
-    ${activeTab === 'rewards' ? `
-      <section>
-        <h2>🎁 Rewards</h2>
-        ${activeTab === 'summary' ? `
+${activeTab === 'summary' ? `
   <section>
-
     <h2>📊 Daily Summary</h2>
 
     <div>
-      <strong>⭐ Today XP</strong>
+      <strong>⭐ Total XP</strong>
       <p>${data.totalXp}</p>
     </div>
 
@@ -196,28 +191,21 @@ const topBoss =
 
     <div>
       <strong>👹 Top Boss</strong>
-      <p>
-        ${topBoss.avatar}
-        ${topBoss.name}
-        — ${topBoss.progress}%
-      </p>
+      <p>${topBoss.avatar} ${topBoss.name} — ${topBoss.progress}%</p>
     </div>
 
     <div class="reflection-box">
-
       <strong>📝 Reflection</strong>
-
       <textarea
-        id="reflection"
         placeholder="How was today..."
         oninput="saveReflection(this.value)"
       >${dailyReflection}</textarea>
-
     </div>
-
   </section>
 ` : ''}
-
+    ${activeTab === 'rewards' ? `
+      <section>
+        <h2>🎁 Rewards</h2>
         ${data.rewards.map(r => `
           <div class="${data.level >= r.level && !r.claimed ? 'reward-available' : ''}">
             <strong>Level ${r.level}</strong>
