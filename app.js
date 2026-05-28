@@ -37,76 +37,134 @@ function render(data) {
   gameData = data;
   const app = document.getElementById('app');
 
-  app.innerHTML = `
-    <h1>🎮 Mischa Quest</h1>
+app.innerHTML = `
+  <h1>🎮 Mischa Quest</h1>
 
+  <div class="tabs">
+    <button onclick="setTab('home')">🏠 Home</button>
+    <button onclick="setTab('bosses')">👹 Bosses</button>
+    <button onclick="setTab('small')">✅ Mini</button>
+    <button onclick="setTab('medium')">⚡ Medium</button>
+    <button onclick="setTab('rewards')">🎁 Rewards</button>
+  </div>
+
+  ${activeTab === 'home' ? `
     <section>
       <h2>Level ${data.level}</h2>
       <p>Total XP: ${data.totalXp}</p>
-      <p>Progress: ${data.xpPercent}%</p>
 
       <div class="bar">
         <div class="fill" style="width:${data.xpPercent}%"></div>
       </div>
 
-      <button data-action="new-day">🌅 Новий день</button>
+      <p>${data.xpPercent}% до нового рівня</p>
     </section>
+  ` : ''}
 
+  ${activeTab === 'bosses' ? `
     <section>
       <h2>👹 Bosses</h2>
+
       ${data.bosses.map(b => `
         <div>
           <strong>${b.avatar} ${b.name}</strong>
-          <p>${b.fact} / ${b.plan} — ${b.progress}%</p>
 
-          <div class="bar smallbar">
+          <p>${b.fact} / ${b.plan}</p>
+
+          <div class="bar">
             <div class="fill" style="width:${b.progress}%"></div>
           </div>
-        </div>
-      `).join('')}
-    </section>
 
-    <section>
-      <h2>⚡ Quests</h2>
-      ${data.quests.map(q => `
-        <div>
-          <strong>${q.done ? '✅' : '⬜'} ${q.name}</strong>
-          <p>${q.type} · ${q.category} · +${q.xp} XP</p>
+          <p>${b.progress}%</p>
 
-          ${q.type === 'Середній' ? `
-            <div class="bar smallbar">
-              <div class="fill" style="width:${q.progress || 0}%"></div>
-            </div>
-            <p>${q.storedXp || 0} / ${q.xp} XP</p>
-          ` : ''}
-
-          ${q.type === 'Міні'
-            ? `<button data-action="toggle" data-sheet="${q.sheet}" data-row="${q.row}" data-done="${!q.done}">
-                ${q.done ? 'Скасувати' : 'Виконати'}
-              </button>`
-            : `
-              <button data-action="medium-add" data-row="${q.row}">+ XP</button>
-              <button data-action="medium-remove" data-row="${q.row}">− XP</button>
-            `
+          ${b.note
+            ? `<div class="note">${b.note}</div>`
+            : ''
           }
         </div>
       `).join('')}
-    </section>
 
+    </section>
+  ` : ''}
+
+  ${activeTab === 'small' ? `
+    <section>
+      <h2>✅ Mini Quests</h2>
+
+      ${data.quests
+        .filter(q => q.type === 'Міні')
+        .map(q => `
+          <div>
+
+            <strong>
+              ${q.done ? '✅' : '⬜'} ${q.name}
+            </strong>
+
+            <p>${q.category} · +${q.xp} XP</p>
+
+            <button
+              onclick="
+                toggleQuest(
+                  '${q.sheet}',
+                  ${q.row},
+                  ${!q.done}
+                )
+              ">
+              ${q.done ? 'Скасувати' : 'Виконати'}
+            </button>
+
+          </div>
+        `).join('')}
+
+    </section>
+  ` : ''}
+
+  ${activeTab === 'medium' ? `
+    <section>
+      <h2>⚡ Medium Quests</h2>
+
+      ${data.quests
+        .filter(q => q.type === 'Середній')
+        .map(q => `
+          <div>
+
+            <strong>${q.name}</strong>
+
+            <p>${q.category}</p>
+
+            <p>${q.storedXp || 0} XP</p>
+
+            <div class="bar">
+              <div class="fill" style="width:${q.progress || 0}%"></div>
+            </div>
+
+          </div>
+        `).join('')}
+
+    </section>
+  ` : ''}
+
+  ${activeTab === 'rewards' ? `
     <section>
       <h2>🎁 Rewards</h2>
-      ${data.rewards.map(r => {
-        const available = data.level >= r.level && !r.claimed;
 
-        return `
-          <div class="${available ? 'reward-available' : ''}">
-            <strong>${available ? '🎁🔥' : '🎁'} Level ${r.level}</strong>
-            <p>${r.reward} ${r.claimed ? '✅ Забрано' : available ? '✨ Доступно!' : ''}</p>
-          </div>
-        `;
-      }).join('')}
+      ${data.rewards.map(r => `
+        <div class="${
+          data.level >= r.level && !r.claimed
+            ? 'reward-available'
+            : ''
+        }">
+
+          <strong>Level ${r.level}</strong>
+
+          <p>${r.reward}</p>
+
+        </div>
+      `).join('')}
+
     </section>
-  `;
+  ` : ''}
+`;
 
   document.querySelectorAll('button[data-action]').forEach(btn => {
     btn.addEventListener('click', () => {
