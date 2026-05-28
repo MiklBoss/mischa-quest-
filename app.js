@@ -1,7 +1,13 @@
 const API = 'https://script.google.com/macros/s/AKfycbyVpnT0fHKHOVBkEoI-k-diDhzF1jSSs8CaMNs3SMH8NvpT2adpRfYvnJDIvvWuweVeww/exec';
 let activeTab = 'home';
 let gameData = null;
+let focusQuestName = localStorage.getItem('focusQuestName') || '';
 
+function setFocusQuest(name) {
+  focusQuestName = name;
+  localStorage.setItem('focusQuestName', name);
+  render(gameData);
+}
 function setTab(tab) {
   activeTab = tab;
   render(gameData);
@@ -52,6 +58,29 @@ app.innerHTML = `
     <section>
       <h2>Level ${data.level}</h2>
       <p>Total XP: ${data.totalXp}</p>
+      <div class="focus-box">
+  <h3>🎯 Active Focus</h3>
+  <p>
+    ${focusQuestName
+      ? focusQuestName
+      : 'Обери один квест як головний фокус зараз'
+    }
+  </p>
+</div>
+
+<div class="notes-panel">
+  <h3>📝 Boss Notes</h3>
+
+  ${data.bosses
+    .filter(b => b.note)
+    .slice(0, 5)
+    .map(b => `
+      <div class="note-card">
+        <strong>${b.avatar} ${b.name}</strong>
+        <p>${b.note}</p>
+      </div>
+    `).join('')}
+</div>
 
       <div class="bar">
         <div class="fill" style="width:${data.xpPercent}%"></div>
@@ -111,6 +140,8 @@ app.innerHTML = `
                 )
               ">
               ${q.done ? 'Скасувати' : 'Виконати'}
+              <button onclick="setFocusQuest('${q.name}')">
+  🎯 Фокус
             </button>
 
           </div>
@@ -143,6 +174,9 @@ app.innerHTML = `
 
     </section>
   ` : ''}
+  <button onclick="setFocusQuest('${q.name}')">
+  🎯 Фокус
+</button>
 
   ${activeTab === 'rewards' ? `
     <section>
